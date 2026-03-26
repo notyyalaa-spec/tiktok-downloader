@@ -4,79 +4,85 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TikTok Video Downloader</title>
+<title>TikTok Downloader - Free No Watermark</title>
+
 <style>
 body {
   font-family: Arial;
   background: #0f172a;
   color: white;
   text-align: center;
-  padding: 50px;
+  padding: 40px;
 }
 input {
-  width: 80%;
+  width: 90%;
+  max-width: 400px;
   padding: 12px;
   border-radius: 10px;
   border: none;
-  margin-bottom: 10px;
 }
 button {
+  margin-top: 10px;
   padding: 12px 20px;
-  border: none;
   background: #22c55e;
-  color: white;
+  border: none;
   border-radius: 10px;
+  color: white;
   cursor: pointer;
 }
-#result {
-  margin-top: 20px;
-}
 </style>
+
 </head>
+
 <body>
 
-<h1>Download TikTok Videos Without Watermark</h1>
+<h1>Download TikTok Without Watermark</h1>
 
-<input type="text" id="link" placeholder="Paste TikTok video link here">
+<!-- Adsterra Banner -->
+
+<div style="margin:20px;">
+  <script>
+    atOptions = {
+      'key' : 'e7bb366aee386420cc7b628c5620cf8a',
+      'format' : 'iframe',
+      'height' : 50,
+      'width' : 320,
+      'params' : {}
+    };
+  </script>
+  <script src="https://www.highperformanceformat.com/e7bb366aee386420cc7b628c5620cf8a/invoke.js"></script>
+</div>
+
+<input type="text" id="link" placeholder="حطي لينك الفيديو هنا">
 <br>
 <button onclick="downloadVideo()">Download</button>
 
-<div id="result"></div>
-
 <script>
-async function downloadVideo() {
+function downloadVideo() {
   let url = document.getElementById("link").value;
-  let resultDiv = document.getElementById("result");
 
   if (!url) {
-    resultDiv.innerHTML = "Please enter a link";
+    alert("حطي لينك الأول");
     return;
   }
 
-  resultDiv.innerHTML = "Loading...";
-
-  try {
-    let response = await fetch(`https://tikwm.com/api/?url=${url}`);
-    let data = await response.json();
-
-    if (data && data.data && data.data.play) {
-      resultDiv.innerHTML = `
-        <video width="300" controls>
-          <source src="${data.data.play}" type="video/mp4">
-        </video>
-        <br><br>
-        <a href="${data.data.play}" download>
-          <button>Download Video</button>
-        </a>
-      `;
-    } else {
-      resultDiv.innerHTML = "Error: Invalid link";
-    }
-  } catch (error) {
-    resultDiv.innerHTML = "Error fetching video";
-  }
+  fetch(`https://tiktok-downloader-production-e402.up.railway.app/download?url=${url}`)
+  .then(response => response.blob())
+  .then(blob => {
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.download = "tiktok-video.mp4";
+    link.click();
+  })
+  .catch(() => {
+    alert("حصلت مشكلة في التحميل");
+  });
 }
 </script>
+
+<!-- Adsterra Popunder -->
+
+<script src="https://pl28985796.profitablecpmratenetwork.com/ad/12/0b/ad120bb86678b664e326b0c1e1466fa6.js"></script>
 
 </body>
 </html>
