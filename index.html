@@ -53,7 +53,7 @@ button {
   <script src="https://www.highperformanceformat.com/e7bb366aee386420cc7b628c5620cf8a/invoke.js"></script>
 </div>
 
-<input type="text" id="link" placeholder="حطي لينك الفيديو هنا">
+<input type="text" id="link" placeholder="put link here for downloading">
 <br>
 <button onclick="downloadVideo()">Download</button>
 
@@ -62,7 +62,7 @@ function downloadVideo() {
   let url = document.getElementById("link").value;
 
   if (!url) {
-    alert("حطي لينك الأول");
+    alert("put link here for downloading");
     return;
   }
 
@@ -75,7 +75,7 @@ function downloadVideo() {
     link.click();
   })
   .catch(() => {
-    alert("حصلت مشكلة في التحميل");
+    alert("Try again");
   });
 }
 </script>
