@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TikTok Video Downloader</title>
+<style>
+body {
+  font-family: Arial;
+  background: #0f172a;
+  color: white;
+  text-align: center;
+  padding: 50px;
+}
+input {
+  width: 80%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  margin-bottom: 10px;
+}
+button {
+  padding: 12px 20px;
+  border: none;
+  background: #22c55e;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+}
+#result {
+  margin-top: 20px;
+}
+</style>
+</head>
+<body>
+
+<h1>Download TikTok Videos Without Watermark</h1>
+
+<input type="text" id="link" placeholder="Paste TikTok video link here">
+<br>
+<button onclick="downloadVideo()">Download</button>
+
+<div id="result"></div>
+
+<script>
+async function downloadVideo() {
+  let url = document.getElementById("link").value;
+  let resultDiv = document.getElementById("result");
+
+  if (!url) {
+    resultDiv.innerHTML = "Please enter a link";
+    return;
+  }
+
+  resultDiv.innerHTML = "Loading...";
+
+  try {
+    let response = await fetch(`https://tikwm.com/api/?url=${url}`);
+    let data = await response.json();
+
+    if (data && data.data && data.data.play) {
+      resultDiv.innerHTML = `
+        <video width="300" controls>
+          <source src="${data.data.play}" type="video/mp4">
+        </video>
+        <br><br>
+        <a href="${data.data.play}" download>
+          <button>Download Video</button>
+        </a>
+      `;
+    } else {
+      resultDiv.innerHTML = "Error: Invalid link";
+    }
+  } catch (error) {
+    resultDiv.innerHTML = "Error fetching video";
+  }
+}
+</script>
+
+</body>
+</html>
